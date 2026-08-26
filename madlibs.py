@@ -11,24 +11,26 @@ ASSIGNMENT REQUIREMENTS
 -----------------------------------------------------------------------
 """
 
-# ℹ️ information only
-# 🆘 HELP!
+# ℹ️ This program is a Mad Libs game that takes user input to customize a famous nursery rhyme.
+# 🆘 Need help? Reach out to your instructor or check the assignment guidelines!
 
 
 # ℹ️ Declare variables
-# name = ""  # ℹ️ intializes the variable (optional)
+# 💡 Tip: Initializing variables first is optional in Python but highly recommended.
+# name = ""
 # animal = ""
 # color = ""
 
 
-# ℹ️ Get user input and assign to variables
-
+# ℹ️ Request user inputs and store them in descriptive variables.
 name = input("Please enter a person's name: ")
 animal = input("Please enter a type of animal: ")
 color = input("Please enter a color: ")
 
 
-# ℹ️ Output
+# ℹ️ Output the final story.
+# 💡 Tip: We use f-strings (formatted string literals prefixed with 'f') to embed variables easily.
+# ⚠️ Warning: Forgetting the 'f' before the opening quote will print variable names as raw text instead of their values!
 print("Mad Lib for Mary Had a Little Lamb\n\n")
 print(f"{name} had a little {animal}")
 print(f"Whose fleece was {color} as snow")
