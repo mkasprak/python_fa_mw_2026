@@ -7,7 +7,10 @@ FILE: buffet.py
 """
 
 # TODO 1: Ask the user for the day of the week.
+day_of_week = input("Please enter the day of the week:  ")
 # TODO 2: Use .lower() with the day input.
+day_of_week = day_of_week.lower()
+# print(day_of_week)
 
 # TODO 3: Use match/case to set child_price_per_year.
 # Tuesday: $0.50 per year.
