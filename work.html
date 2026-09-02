@@ -1,0 +1,304 @@
+<div style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 1200px; margin: 0px auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; line-height: 1.6; border: 1px solid #e0e0e0;" lang="en">
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2d3b45; line-height: 1.6; max-width: 1200px; margin: auto; border-radius: 10px; overflow: hidden; border: 1px solid #e0e0e0;">
+        <div style="background-color: #4b3190; padding: 30px; color: #ffffff;">
+            <h2 style="margin: 0; font-size: 32px; color: #ffffff;">📚 Assignment 3B: Conditional Logic</h2>
+            <p style="margin: 5px 0 0 0; font-size: 1.2em; color: #ffffff;">Decisions, Decisions: If, Elif, and Else</p>
+        </div>
+        <div style="padding: 0 10px;">
+            <p>Up until now, your code has been a straight line.</p>
+            <p>It ran from top to bottom, never skipping a beat. But real life isn't a straight line. Sometimes you have to make a choice: <em>If it's raining, take an umbrella. Else, leave it at home.</em></p>
+            <p>In this lesson, we give your program a "brain" by teaching it to evaluate data using Conditional Statements.</p>
+        </div>
+        <hr style="border-width: 1px 0px 0px; border-style: solid none none; border-color: #e0e0e0 currentcolor currentcolor; margin: 25px 0px;" />
+        <details style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #dddddd;">
+            <summary style="color: #4b3190; font-size: 18px; cursor: pointer; padding: 10px;">⬇️ Part 1: Comparison Operators 🛠️</summary>
+            <div style="padding: 15px; margin-top: 10px;">
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid #dddddd;">
+                    <caption style="text-align: left; padding: 10px; color: #2d3b45;">Common Python Comparison Operators</caption>
+                    <thead style="background-color: #4b3190; color: #ffffff;">
+                        <tr>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #dddddd;" scope="col">Symbol</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #dddddd;" scope="col">Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>==</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Equal to</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>!=</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Not equal to</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>&gt;</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Greater than</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>&lt;</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Less than</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>&gt;=</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Greater than or equal to</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dddddd;"><code>&lt;=</code></td>
+                            <td style="padding: 10px; border: 1px solid #dddddd;">Less than or equal to</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+        <details style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #dddddd;">
+            <summary style="color: #4b3190; font-size: 18px; cursor: pointer; padding: 10px;">⬇️ Part 2: The Fork (if / else) 🛤️</summary>
+            <div style="padding: 15px; margin-top: 10px;">
+                <p>The if statement checks a condition. If it is True, the indented code runs. If not, it skips to the else.</p>
+                <pre style="background-color: #282c34; padding: 20px; border-radius: 5px; color: #ffffff; overflow-x: auto;">age = 15
+if age &gt;= 18:
+    print("Welcome.")
+else:
+    print("Too young.")</pre>
+            </div>
+        </details>
+        <details style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #dddddd;">
+            <summary style="color: #4b3190; font-size: 18px; cursor: pointer; padding: 10px;">⬇️ Part 3: Multiple Paths (elif) 🚦</summary>
+            <div style="padding: 15px; margin-top: 10px;">
+                <h3 style="color: #4b3190;">The Milestone Checker</h3>
+                <p>When you have more than two paths, use elif (short for else if) to check multiple conditions in order.</p>
+                <pre style="background-color: #282c34; padding: 20px; border-radius: 5px; color: #ffffff; overflow-x: auto;"># Get the age and convert it to an integer
+age = int(input("How old are you? "))
+
+# Python checks these from top to bottom
+if age &lt; 16:
+    # This block runs if age is 15 or less
+    print("You can't drive yet.")
+elif age &lt; 18:
+    # This block runs for ages 16 and 17
+    print("You can't vote yet!")
+elif age &lt; 21:
+    # This block runs for ages 18, 19, and 20
+    print("You can't drink yet!")
+elif age &lt; 65:
+    # This block handles ages 21 through 64
+    print("You can't retire yet!")
+    print("Are you counting the years?")
+else:
+    # This is the catch-all for age 65 and older
+    print("Where would you like to retire to?")</pre>
+                <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; border: 2px solid #7a0000;">
+                    <p style="color: #7a0000; margin: 0;">Important Note: Python checks these from top to bottom. As soon as it finds a True statement, it runs that block and ignores the rest. This is why we check the youngest ages first!</p>
+                </div>
+                <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 20px; border: 2px solid #4b3190;">
+                    <h4 style="margin-top: 0; color: #4b3190;">🤔 Quick Logic Challenge</h4>
+                    <p style="margin-bottom: 0; color: #2d3b45;">If a user enters 17, they are technically younger than 18, 21, and 63. Based on the top-down rule, why does only the "vote" message appear?</p>
+                </div>
+            </div>
+        </details>
+        <details style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #dddddd;">
+            <summary style="color: #4b3190; font-size: 18px; cursor: pointer; padding: 10px;">⬇️ Part 4: Pattern Matching with Match/Case 🔀</summary>
+            <div style="padding: 15px; margin-top: 10px;">
+                <p>When you need to compare a single variable against a series of discrete values, Python uses the <code>match/case</code> statement (introduced in Python 3.10+) instead of a traditional switch statement.</p>
+                <pre style="background: #1a202c; color: #e2e8f0; padding: 15px; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 0.95em;"><code>"""
+Python switch/case demo.
+
+Python uses match/case (Python 3.10+) instead of a traditional switch statement.
+"""
+
+# ℹ️ Ask the user for a month name.
+user_month = input("Enter a month name: ")
+
+# ℹ️ match compares the value in parentheses to each case below.
+# 💡 .lower() changes text to lowercase, so "January" and "january" both work.
+# 🦗 Common bug: case statements must be indented under match.
+match user_month.lower():
+    case "january":
+        print("New Year's Day and Martin Luther King Jr. Day")
+    case "february":
+        print("Presidents Day")
+    case "march":
+        print("St. Patrick's Day")
+    case "april":
+        print("Earth Day")
+    case "may":
+        print("Memorial Day")
+    case "june":
+        print("Juneteenth")
+    case "july":
+        print("Independence Day")
+    case "august":
+        print("No federal holiday")
+    case "september":
+        print("Labor Day")
+    case "october":
+        print("Halloween")
+    case "november":
+        print("Thanksgiving")
+    case "december":
+        print("Christmas Day")
+    # ℹ️ _ means "anything else". It is the default case.
+    case _:
+        print("Please enter a full month name.")</code></pre>
+            </div>
+        </details>
+        <details style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #dddddd;">
+            <summary style="color: #4b3190; font-size: 18px; cursor: pointer; padding: 10px;">⬇️ Part 5: When to Use Match/Case vs. Elif ⚖️</summary>
+            <div style="padding: 15px; margin-top: 10px;">
+                <p>Choosing between a <code>match/case</code> statement and an <code>if/elif/else</code> chain depends on the complexity of your evaluation criteria:</p>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li style="margin-bottom: 8px;"><strong>Use <code>match/case</code> when:</strong> You are comparing a <strong>single variable or expression</strong> against a series of discrete, exact values or data patterns (such as menu choices, command strings, status codes, or structural data types). It keeps multi-way discrete value checks cleaner and more readable.</li>
+                    <li><strong>Use <code>if/elif/else</code> when:</strong> Your conditions involve <strong>ranges of values</strong> (e.g., numeric thresholds like <code>age &lt; 16</code>), independent boolean expressions, or multiple different variables evaluated together in complex logical comparisons.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+    <div style="margin-top: 40px; padding: 30px; background-color: #f1f8e9; border-radius: 8px; border: 1px solid #1b3010;">
+        <h2 style="margin-top: 0; color: #1b3010;">📝 Assignment: The Buffet Calculator (Match/Case &amp; Days)</h2>
+        <p style="color: #1b3010;">Create a new buffet program from scratch that uses <code>match/case</code> and user input for the day of the week.</p>
+        <p style="color: #7a0000;"><strong>⚠️ Before you begin:</strong> This assignment requires Python 3.10 or newer. Review Parts 1 through 5 before writing your program.</p>
+        <h3 style="color: #1b3010; font-size: 1.1em;">Step 1: Set up</h3>
+        <p style="color: #1b3010;">Create a new file named <code>buffet.py</code>. Add this header docstring to the top of your file, then complete the numbered requirements below.</p>
+        <pre style="padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; background-color: #ffffff; border: 2px dashed #4b3190;">"""
+-----------------------------------------------------------------------
+ASSIGNMENT: 3B - The Buffet Calculator (Daily Specials)
+DATE: [Insert Date]
+FILE: buffet.py
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+"""</pre>
+        <h3 style="color: #1b3010; font-size: 1.1em; margin-top: 20px;">Requirements</h3>
+        <ol style="color: #1b3010; padding-left: 25px;">
+            <li style="margin-bottom: 10px;">Ask the user for the day of the week. Use <code>.lower()</code> with the day input.</li>
+            <li style="margin-bottom: 10px;">Use a <code>match/case</code> statement to set the child price per year.
+                <ul style="margin: 6px 0 0; padding-left: 20px;">
+                    <li>Tuesday: Set <code>child_price_per_year</code> to $0.50.</li>
+                    <li>Sunday: Set <code>child_price_per_year</code> to $1.00 and print a notice that drinks are free.</li>
+                    <li>Use the default case (<code>case _</code>) for every other day. Set <code>child_price_per_year</code> to $1.00.</li>
+                    <li>The free-drinks notice does not add or subtract anything from the total price.</li>
+                </ul>
+            </li>
+            <li style="margin-bottom: 10px;">Ask the user for their age and convert it to an integer.</li>
+            <li style="margin-bottom: 10px;">Calculate the base price using <code>if/elif/else</code>.
+                <ul style="margin: 6px 0 0; padding-left: 20px;">
+                    <li>Under 1: FREE ($0.00)</li>
+                    <li>Ages 1 to 12: Multiply the age by <code>child_price_per_year</code>.</li>
+                    <li>Ages 13 to 64: $16.95 (Standard Adult)</li>
+                    <li>Age 65 and older: $12.95 (Senior Discount)</li>
+                    <li>Age 12 is a child price; age 13 is an adult price.</li>
+                </ul>
+            </li>
+            <li style="margin-bottom: 10px;">Print the final price formatted as currency and display any applicable daily special notices.</li>
+            <li>You may assume the user enters a valid full day name and a whole-number age.</li>
+        </ol>
+        <h3 style="color: #1b3010; font-size: 1.1em; margin-top: 20px;">Step 2: Build It in This Order</h3>
+        <ol style="color: #1b3010; padding-left: 25px;">
+            <li style="margin-bottom: 6px;">Ask for the day of the week and store it in a variable.</li>
+            <li style="margin-bottom: 6px;">Use <code>match/case</code> to set <code>child_price_per_year</code>. Use $0.50 for Tuesday. Use $1.00 for Sunday and every other day; on Sunday, also print the free-drinks notice. Use <code>case _</code> for every day that is not Tuesday or Sunday.</li>
+            <li style="margin-bottom: 6px;">Set <code>child_price_per_year</code> before calculating a price so Python knows which child rate to use.</li>
+            <li style="margin-bottom: 6px;">Ask for the user's age and convert it to an integer.</li>
+            <li style="margin-bottom: 6px;">Use one <code>if/elif/else</code> chain to determine the price from the age tiers.</li>
+            <li style="margin-bottom: 6px;">For ages 1 through 12, multiply the age by <code>child_price_per_year</code>. Age 13 uses the adult price.</li>
+            <li>Print the final price as currency. The Sunday drinks message does not change that price.</li>
+        </ol>
+        <p style="color: #1b3010;">💡 Use <code>.lower()</code> on the day input so capitalization (like "Tuesday" versus "tuesday") does not affect the result.</p>
+        <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #33691e;">
+            <p style="color: #1b3010; margin: 0; margin-bottom: 10px;"><strong>💡 Pro-Tips for Success:</strong></p>
+            <ul style="color: #1b3010; margin: 0; padding-left: 20px;">
+                <li style="margin-bottom: 6px;"><strong>Default Case:</strong> Use <code>case _</code> for all days that are not Tuesday or Sunday.</li>
+                <li style="margin-bottom: 6px;"><strong>Currency Formatting:</strong> To print a number as currency, use an f-string with a format specifier: <code>print(f"Your total is ${price:.2f}")</code>. The <code>.2f</code> forces two decimal places.</li>
+                <li style="margin-bottom: 6px;"><strong>Test Your Logic:</strong> Tuesday and age 5 should result in a total of <code>$2.50</code>.</li>
+                <li><strong>Indentation Check:</strong> Make sure your <code>case</code> statements are properly indented directly under your <code>match</code> statement!</li>
+            </ul>
+        </div>
+        <h3 style="color: #1b3010; font-size: 1.1em; margin-top: 20px;">Step 3: Check Your Work</h3>
+        <table style="width: 100%; border-collapse: collapse; color: #1b3010; border: 1px solid #33691e;">
+            <thead style="background-color: #dcedc8;">
+                <tr>
+                    <th style="padding: 10px; text-align: left; border: 1px solid #33691e;" scope="col">Day</th>
+                    <th style="padding: 10px; text-align: left; border: 1px solid #33691e;" scope="col">Age</th>
+                    <th style="padding: 10px; text-align: left; border: 1px solid #33691e;" scope="col">Expected Total</th>
+                    <th style="padding: 10px; text-align: left; border: 1px solid #33691e;" scope="col">Extra Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #33691e;">Tuesday</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">5</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">$2.50</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">None</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #33691e;">Monday</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">5</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">$5.00</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">None</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #33691e;">Sunday</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">30</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">$16.95</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">Drinks are free</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #33691e;">Friday</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">70</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">$12.95</td>
+                    <td style="padding: 10px; border: 1px solid #33691e;">None</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="color: #1b3010; font-size: 1.1em; margin-top: 20px;">Step 4: Submit</h3>
+        <p style="color: #1b3010;">Upload your <code>buffet.py</code> file to GitHub and submit the repository URL to Canvas. 🏁</p>
+    </div>
+    <div style="margin-top: 40px; padding: 0 20px;">
+        <h3 style="color: #4b3190;">📊 Grading Rubric: Assignment 3B (20 pts)</h3>
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <caption style="text-align: left; padding: 10px; color: #2d3b45;">Grading Criteria for Assignment 3B</caption>
+            <thead style="background-color: #4b3190; color: #ffffff;">
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="col">Criteria</th>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="col">Distinguished (4 pts)</th>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="col">Proficient (3 pts)</th>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="col">Emerging (1-2 pts)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="row">Pricing Logic</th>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">All age tiers and calculations are 100% accurate.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Logic works but fails on an edge case (age 13 or 65).</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Major logic errors or missing tiers.</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="row">Elif Efficiency</th>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Uses a clean if/elif/else chain without redundant conditions.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Chain works but includes unnecessary extra checks.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Uses multiple independent if statements instead of elif.</td>
+                </tr>
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="row">Match/Case Logic</th>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Uses match/case to set the correct child price and display the Sunday drinks notice.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Uses match/case but has one incorrect or missing day rule.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Missing match/case or the day rules do not work.</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="row">Formatting</th>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Output is formatted as currency with $ and 2 decimals.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Price is correct, but missing $ or proper decimal places.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Output is messy or hard to read.</td>
+                </tr>
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #dddddd;" scope="row">Documentation</th>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Full header docstring and helpful inline comments included.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">Header included but missing inline comments.</td>
+                    <td style="padding: 10px; border: 1px solid #dddddd;">The header is incomplete or missing.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="background-color: #f9f9f9; padding: 25px; text-align: center; border-top: 1px solid #eee;">
+        <p style="font-size: 1.1em; color: #4b3190; margin: 0;">&copy; 2026 Meri Kasprak, Ph.D. 🦆&nbsp;</p>
+        <p style="font-size: 1.1em; color: #4b3190; margin: 0;">In Collaboration with Gemini ✨</p>
+    </div>
+</div>
+<p>&nbsp;</p>
