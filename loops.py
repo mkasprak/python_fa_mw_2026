@@ -53,3 +53,14 @@ for day in (
     "Saturday",
 ):
     print(day)
+
+eat = False
+
+# 💡 TIP: .lower() converts the user's input to lowercase.
+# That means "YES", "Yes", and "yes" all become "yes".
+# This helps us compare user input in a simple, consistent way.
+# ℹ️ INFO: It is a string method, so it works on text input from input().
+while not eat:
+    feed = input("Can we eat now???  (yes/no)   ").lower()
+    if feed == "yes":
+        eat = True
