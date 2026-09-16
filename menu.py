@@ -11,28 +11,25 @@ This version uses a state flag (is_running) to control the loop, safely validate
 and uses continue to restart the menu if bad data is entered.
 """
 
-# 🚩 STATE FLAG: We create a variable to track if the program should keep running.
-is_running = True
+# 🧭 MENU: A CRUD program usually starts by showing the user available actions.
+# ℹ️ INFO: Each numbered option represents one task the program will eventually perform.
+print(f" 1.  Create a new contact")
+print(f" 2.  Search contacts")
+print(f" 3.  Update contact")
+print(f" 4.  Delete a contact")
+print(f" 5.  Quit")
 
-while is_running:
-    # 🧭 MENU: Display the available choices at the start of each iteration
-    print("\n--- CONTACT MANAGER ---")
-    print("1. Create a new contact")
-    print("2. Search contacts")
-    print("3. Update contact")
-    print("4. Delete a contact")
-    print("5. Quit")
+# 💡 TIP: `choice` needs a starting value before Python can test the `while` condition.
+# Starting at 1 lets the loop begin and ask the user for their real selection.
+choice = 1
 
-    # 🛡️ INPUT VALIDATION: Guard numeric conversion against text crashes
-    try:
-        choice = int(input("Please enter the number of your selection: "))
-    except ValueError:
-        print("Error: That is not a valid number. Please enter digits only.")
-        # ⏭️ CONTINUE: Immediately skip the rest of this pass and return to the menu prompt.
-        continue
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        continue
+# 🔁 LOOP: Keep offering actions while the choice is 1, 2, 3, or 4.
+# ℹ️ INFO: Choice 4 keeps the loop going, so Delete can be selected again.
+while choice > 0 and choice < 5:
+    # 💀⚡💀 WARNING: The value used in a while condition must change inside the loop.
+    # Without this new input, a choice of 2 stays 2 forever and prints "Search" forever.
+    # ⌨️ INPUT: input() gives us text, so int() changes a number such as "2" into the integer 2.
+    choice = int(input("Please enter the number of your selection:  "))
 
     # 🧩 DECISION: match compares choice to each valid case
     match choice:
