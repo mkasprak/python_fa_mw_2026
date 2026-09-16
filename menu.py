@@ -9,13 +9,7 @@ Thinking CRUD
 💡When we get to crud, we will present users with a menu of choices. This is a standard interface module. Now that we know Match Case, it makes menu choices easy. It will get even easier when we get to functions.
 """
 
-# 🧭 MENU: A CRUD program usually starts by showing the user available actions.
-# ℹ️ INFO: Each numbered option represents one task the program will eventually perform.
-print(f" 1.  Create a new contact")
-print(f" 2.  Search contacts")
-print(f" 3.  Update contact")
-print(f" 4.  Delete a contact")
-print(f" 5.  Quit")
+
 
 # 💡 TIP: `choice` needs a starting value before Python can test the `while` condition.
 # Starting at 1 lets the loop begin and ask the user for their real selection.
@@ -27,6 +21,13 @@ while choice > 0 and choice < 5:
     # 💀⚡💀 WARNING: The value used in a while condition must change inside the loop.
     # Without this new input, a choice of 2 stays 2 forever and prints "Search" forever.
     # ⌨️ INPUT: input() gives us text, so int() changes a number such as "2" into the integer 2.
+    # 🧭 MENU: A CRUD program usually starts by showing the user available actions.
+    # ℹ️ INFO: Each numbered option represents one task the program will eventually perform.
+    print(f" 1.  Create a new contact")
+    print(f" 2.  Search contacts")
+    print(f" 3.  Update contact")
+    print(f" 4.  Delete a contact")
+    print(f" 5.  Quit")
     choice = int(input("Please enter the number of your selection:  "))
 
     # 🧩 DECISION: match compares `choice` to each case and runs the matching block.
