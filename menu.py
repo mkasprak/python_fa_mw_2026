@@ -1,50 +1,62 @@
 """
 Thinking CRUD
 
-🏗️  Create
-📖  Read
-🔃  Update
-🗑️  Delete
+🏗️ Create
+📖 Read
+🔃 Update
+🗑️ Delete
 
-💡When we get to crud, we will present users with a menu of choices. This is a standard interface module. Now that we know Match Case, it makes menu choices easy. It will get even easier when we get to functions.
+💡 A CRUD program presents users with a menu of choices.
+This version uses a state flag (is_running) to control the loop, safely validates inputs,
+and uses continue to restart the menu if bad data is entered.
 """
 
-# 🧭 MENU: A CRUD program usually starts by showing the user available actions.
-# ℹ️ INFO: Each numbered option represents one task the program will eventually perform.
-print(f" 1.  Create a new contact")
-print(f" 2.  Search contacts")
-print(f" 3.  Update contact")
-print(f" 4.  Delete a contact")
-print(f" 5.  Quit")
+# 🚩 STATE FLAG: We create a variable to track if the program should keep running.
+is_running = True
 
-# 💡 TIP: `choice` needs a starting value before Python can test the `while` condition.
-# Starting at 1 lets the loop begin and ask the user for their real selection.
-choice = 1
+while is_running:
+    # 🧭 MENU: Display the available choices at the start of each iteration
+    print("\n--- CONTACT MANAGER ---")
+    print("1. Create a new contact")
+    print("2. Search contacts")
+    print("3. Update contact")
+    print("4. Delete a contact")
+    print("5. Quit")
 
-# 🔁 LOOP: Keep offering actions while the choice is 1, 2, 3, or 4.
-# ℹ️ INFO: Choice 4 keeps the loop going, so Delete can be selected again.
-while choice > 0 and choice < 5:
-    # 💀⚡💀 WARNING: The value used in a while condition must change inside the loop.
-    # Without this new input, a choice of 2 stays 2 forever and prints "Search" forever.
-    # ⌨️ INPUT: input() gives us text, so int() changes a number such as "2" into the integer 2.
-    choice = int(input("Please enter the number of your selection:  "))
+    # 🛡️ INPUT VALIDATION: Guard numeric conversion against text crashes
+    try:
+        choice = int(input("Please enter the number of your selection: "))
+    except ValueError:
+        print("Error: That is not a valid number. Please enter digits only.")
+        # ⏭️ CONTINUE: Immediately skip the rest of this pass and return to the menu prompt.
+        continue
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        continue
 
-    # 🧩 DECISION: match compares `choice` to each case and runs the matching block.
+    # 🧩 DECISION: match compares choice to each valid case
     match choice:
-
         case 1:
-            # 🏗️ CREATE: Later, this is where we will collect and save a new contact.
-            print("Create")
+            # 🏗️ CREATE: Later, collect and save a new record
+            print("Action: Create contact selected.")
+
         case 2:
-            # 📖 READ: Searching lets us look up and display an existing contact.
-            print("Search")  # read
+            # 📖 READ: Look up and display an existing record
+            print("Action: Search contacts selected.")
+
         case 3:
-            # 🔃 UPDATE: Later, this is where we will change saved contact information.
-            print("Update")
+            # 🔃 UPDATE: Modify saved information
+            print("Action: Update contact selected.")
+
         case 4:
-            # 🗑️ DELETE: Later, this is where we will remove a contact.
-            print("Delete")
+            # 🗑️ DELETE: Remove a record
+            print("Action: Delete contact selected.")
+
         case 5:
-            # 👋 QUIT: Say goodbye. Because 5 is outside the while condition, the loop ends next.
-            # 💡 TIP: This means "Good bye!" prints once instead of repeating.
+            # 👋 QUIT: Change the state flag to False to end the loop gracefully
             print("Good bye!")
+            is_running = False
+
+        case _:
+            # 🛑 CATCH-ALL: Matches any integer outside the 1 to 5 range
+            print("Invalid selection. Please choose an option from 1 to 5.")
