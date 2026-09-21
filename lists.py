@@ -1,13 +1,15 @@
 """
 lists, arrays, vectors, tuples
 
-python - lists are muteable, tuples are immutable
+python - lists are mutable, tuples are immutable
 other languages have arrays and vectors
 
 """
 
 # ℹ️ INFO: A list stores multiple values in one variable.
 # 💡 TIP: Lists use square brackets, and each item is separated by a comma.
+# ℹ️ INFO: During the lecture, comment out each example after demonstrating it before moving on.
+# At the end, uncomment the examples so students can see the complete program.
 
 dwarves = ["Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"]
 
@@ -41,6 +43,7 @@ for item in college_classes:
 
 # ℹ️ INFO: pop(index) removes the item at the given index.
 # 💡 TIP: Without an index, pop() removes the last item.
+# ℹ️ INFO: pop(3) removes the fourth item because list indexes start at 0.
 
 college_classes.pop(3)
 print("\n\n")
@@ -67,13 +70,21 @@ if "Sleepy" in dwarves:
     print("Yes, Sleepy is a dwarf")
 
 # ⚠️ WARNING: Assigning one list to another variable does not make a copy.
+# 💡 TIP: Both variable names will point to the same list.
+# The guest_list name represents the Thanksgiving guest list.
+# Try this first during the lecture:
+# guest_list = dwarves
+# guest_list.append("Snarky")
+# print(dwarves)  # The original list also has Snarky.
+
 # 💡 TIP: [:] creates a separate copy of the list.
-vertically_challenged = dwarves[:]
-for person in vertically_challenged:
+# Add Snarky to the copy and then print dwarves to show that the original is unchanged.
+guest_list = dwarves[:]
+for person in guest_list:
     print(person)
 
 
-vertically_challenged.append("Snarky")
+guest_list.append("Snarky")
 
 # ℹ️ INFO: Adding Snarky to the copy does not change the original list.
 for dwarf in dwarves:
@@ -81,15 +92,17 @@ for dwarf in dwarves:
 
 
 # 💡 TIP: A slice [start:stop] copies items from start up to, but not including, stop.
-v_c = dwarves[2:6]
+# This slice creates a new list containing dwarves at indexes 2, 3, 4, and 5.
+# Adding sarcastic to guests will not add it to dwarves because guests is a separate list.
+guests = dwarves[2:6]
 
-v_c.append("saracastic")
+guests.append("sarcastic")
 
-for dwarf in v_c:
+for dwarf in guests:
     print(dwarf)
 
 # ℹ️ INFO: sort() arranges the items in a list in alphabetical order.
-v_c.sort()
+guests.sort()
 print("\n\n")
-for dwarf in v_c:
+for dwarf in guests:
     print(dwarf)
