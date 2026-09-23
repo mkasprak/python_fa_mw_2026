@@ -25,3 +25,5 @@ if name in USER_NAMES:
     passwords[location] = password
     print("Password has been changed")
     # print(passwords) - error check
+else:
+    print("I'm sorry, that user does not exist")
