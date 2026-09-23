@@ -10,9 +10,18 @@ ASSIGNMENT 6B: THE DEPARTMENT SECURITY TERMINAL
 -----------------------------------------------------------------------
 """
 
-# declare variables/data structures
+USER_NAMES = ("Bob", "Sue", "Tom")
+passwords = ["0", "1", "2"]
+
+#  just the change password logic/ code  choice 3
 
 
-# while loop
-
-# display menu
+name = input("Please enter the user name:  ")
+if name in USER_NAMES:
+    # error checking
+    # print(passwords) - error check
+    location = USER_NAMES.index(name)
+    password = input("Enter new password")
+    passwords[location] = password
+    print("Password has been changed")
+    # print(passwords) - error check
