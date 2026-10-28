@@ -1,11 +1,11 @@
 """
-☕ Final Project Menus
+☕ Final Project Menus (Week 11)
 
 """
 
-# 📌 Week 10 note (design decision):
+# 📌 Week 11 note (design decision):
 # We decided to pass around the employee's ID (employee_id), not the whole employee record.
-# Next week, when we learn file I/O, we will use employee_id to look up the full employee info from the file.
+# Next week (Week 12), we will use employee_id to READ the full employee info from the file.
 
 # 📌 CONSTANTS
 # A constant is a value we do not plan to change while the program runs.
@@ -52,6 +52,7 @@ def get_employee():
     # 📁 Data idea (text file):
     # EmployeeNumber, Name, OfficeNumber, Extension
     # ⚠️ pitfall: naming a variable `id` hides Python's built-in id() function.
+    # TODO (Week 12): rename `id` to `employee_id` for clarity (it also avoids hiding Python's built-in id()).
     id = int(input("Please enter your ID number:  "))
     # TODO lookup employee
     f_name = input("Please enter your first name:  ")
@@ -74,6 +75,8 @@ def get_employee():
         "allergies": known_allergies,
     }
 
+    # TODO (Week 12 - file I/O lesson): pick ONE consistent folder/file path for ALL saved data
+    # (employees, orders, errors, receipts) so reading back is easy.
     with open("final_project\\employees.txt", "a") as f:
         f.write(f"{id}:{employee_record}\n")
 
@@ -102,6 +105,7 @@ def get_order(emp_id):
         try:
             # ⚠️ pitfall: `type` is also the name of a built-in Python function.
             # Using it as a variable works, but can be confusing. (A clearer name: drink_choice)
+            # TODO (Week 12): rename `type` to `drink_choice`.
             type = int(
                 input(
                     "Please enter the number for the type of drink you want:  "
@@ -236,16 +240,31 @@ def get_order(emp_id):
             continue
         break
 
-    # ℹ️ info: This order is stored as a list. Each position has a meaning:
-    # order[0]=emp_id, order[1]=drink, order[2]=size, order[3]=milk, order[4]=flavor, order[5]=pumps
-    order = [emp_id, drink, size, milk, flavor, pumps]
+    # ℹ️ info: This order is stored as a Dictionary.
+    order = {
+        emp_id: {
+            "drink": drink,
+            "size": size,
+            "milk": milk,
+            "flavor": flavor,
+            "pumps": pumps,
+        }
+    }
+    # TODO (Week 12 - file I/O lesson):
+    # - Save orders to a consistent file location (probably under final_project\\).
+    # - Use a format that's easy to read back (ex: CSV or JSON) instead of Python dict strings.
+    # - Return the order (or an order_id) so the next step can confirm/print it without re-reading yet.
+    with open("all_orders.txt", "a") as f:
+        f.write(f"{order}\n")
 
-    return order
+    return
 
 
-def confirm_order(order):
+def confirm_order(order_num):
     # 🧠 STEP 3: Confirm an order (show it back to the user and allow edits)
     # ✅ Return: the updated order list
+    order = []  # Week 12: we will read in the order from a file
+
     while True:
         clear_screen()
         count = 1
@@ -295,7 +314,7 @@ def confirm_order(order):
             continue
 
 
-def confirm_employee(employee_record):
+def confirm_employee(employee_id, employee_record):
     # 🧠 STEP 1b: Confirm employee info (print the record, let the user fix mistakes)
     # ✅ Return: the (possibly updated) employee_record dictionary
     while True:
@@ -305,7 +324,8 @@ def confirm_employee(employee_record):
         # Inside the { ... } part we also need quotes for dict keys. If we used double quotes
         # again (employee_record["office"]), Python would think the f-string ended early.
         # Using single quotes for the dict keys avoids that quote-conflict.
-        print(f"1.  Employee Number:  {employee_record['employee_nbr']}")
+        # TODO (Week 12): keep employee_id as a separate value (not inside employee_record).
+        print(f"1.  Employee ID:  {employee_id}")
         print(f"2.  Office Number:  {employee_record['office']}")
         print(f"3.  Extension:  {employee_record['extension']}")
         print(f"4.  First Name:  {employee_record['f_name']}")
@@ -329,15 +349,16 @@ def confirm_employee(employee_record):
         # `employee_record` is the dictionary we want to update.
         # If you want the change to "stick", you must assign into the dict (example):
         # employee_record["office"] = input("New office number: ").strip()
+        # TODO - read dictionary in from file
+        # TODO - add write when we can read in to confirm
         match change:
             case 1:
                 while True:
                     try:
-                        employee_nbr = int(input("New employee number: ").strip())
-                        employee_record["employee_nbr"] = employee_nbr
+                        employee_id = int(input("New employee ID: ").strip())
                         break
                     except ValueError:
-                        print("Employee number must be a whole number.")
+                        print("Employee ID must be a whole number.")
                         continue
                     except Exception as e:
                         right_now = datetime.datetime.now()
@@ -363,13 +384,16 @@ def confirm_employee(employee_record):
     # 💾 Saving:
     # If anything changes, update the employee and/or order storage so it is available next time.
 
-    return employee_record
+    return employee_id, employee_record
 
 
-def print_label(order, employee):
-    # 🧠 STEP 4: Output a label / receipt for the order
-    # 🖨️ Output: this function is where you format what prints to the screen.
-    # 🧠 STEP 4: Output (label / receipt)
+def print_label(order_num, employee_id):
+    # TODO we need to read order_num and employee_id into dictionaries
+    # TODO (Week 12 - file I/O lesson): read the saved employee + order from files using IDs, then print.
+
+    # Temp placeholder:
+    employee = {}
+    order = {}
     # Plan:
     # 1) Create the label text (employee + order details).
     # 2) Print the label to the screen (or to a printer later).
@@ -380,6 +404,15 @@ def print_label(order, employee):
     for item in order:
         print(item)
     # 3) Ask if they also want a receipt.
+    receipt = input("Would you like a receipt (y/n)?  ").strip().lower()
+    if receipt == "y":
+        # TODO (Week 12): choose a consistent receipt filename/location (ex: final_project\\receipt.txt).
+        with open("final_project\\receipt", "w") as f:
+            # note - write because we want a new one each time not a history
+            for key in employee:
+                f.write(f"{key}: {employee[key]}")
+            for item in order:
+                f.write(item)
     # 4) Print the receipt if requested.
 
 
@@ -390,17 +423,18 @@ def main():
     clear_screen()
     # 🧠 Get the employee record first
     # emp_record is a dictionary
-    id = get_employee()
+    employee_id = get_employee()
     # ℹ️ Grab the employee number out of the dictionary using its key
-    emp_id = id
+    emp_id = employee_id
     # NOTE on scope/mutability:
     # When we pass a dictionary into a function, the function can see and edit the SAME dictionary object.
     # Returning it and re-assigning (emp_record = confirm_employee(emp_record)) is not required for scope;
     # we do it here to make the logic/readability clear ("this function may update the record").
-    # TODO confirm_employee(emp_id) #TODO  change confirm employee to lookup from file
+    # TODO (Week 12): lookup employee from file first, then confirm it here.
+    # employee_id, employee_record = confirm_employee(employee_id, employee_record)
     # ✅ We pass the employee ID (an int) into get_order so the order can be tied to a person.
-    order = get_order(emp_id)
-    order = confirm_order(order)
+    order_num = get_order(emp_id)
+    confirm_order(order_num)
 
 
 # ▶️ Start the program by calling main().
