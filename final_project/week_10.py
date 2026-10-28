@@ -74,7 +74,7 @@ def get_employee():
         "allergies": known_allergies,
     }
 
-    with open("employees.txt", "a") as f:
+    with open("final_project\\employees.txt", "a") as f:
         f.write(f"{id}:{employee_record}\n")
 
     return id
@@ -115,7 +115,7 @@ def get_order(emp_id):
             )
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
         if type < 1 or type > len(DRINK_TYPE):
@@ -146,7 +146,7 @@ def get_order(emp_id):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
         if my_size < 1 or my_size > len(SIZES):
@@ -172,7 +172,7 @@ def get_order(emp_id):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
         if my_milk < 1 or my_milk > len(MILKS):
@@ -200,7 +200,7 @@ def get_order(emp_id):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
         if my_flavor < 1 or my_flavor > len(FLAVORS):
@@ -231,7 +231,7 @@ def get_order(emp_id):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
         break
@@ -268,7 +268,7 @@ def confirm_order(order):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
 
@@ -290,7 +290,7 @@ def confirm_order(order):
             continue
         except Exception as e:
             right_now = datetime.datetime.now()
-            with open("error.txt", "a") as f:
+            with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
 
@@ -341,7 +341,7 @@ def confirm_employee(employee_record):
                         continue
                     except Exception as e:
                         right_now = datetime.datetime.now()
-                        with open("error.txt", "a") as f:
+                        with open("final_project\\error.txt", "a") as f:
                             f.write(f"{right_now}:  {e}\n")
                         continue
             case 2:

@@ -1,4 +1,0 @@
-{'employee_nbr': 42, 'office': 'g204', 'extension': '8675', 'f_name': 'Meri', 'l_name': 'Kasprak', 'allergies': 'soy,gluten'}
-42:{'office': 'g204', 'extension': '8675', 'f_name': 'Meri', 'l_name': 'Kasprak', 'allergies': 'gluten, soy'}
-42:{'office': 'g204', 'extension': '8675', 'f_name': 'Meri', 'l_name': 'Kasprak', 'allergies': 'gluten, soy'}
-42:{'office': 'g204', 'extension': '8675', 'f_name': 'Meri', 'l_name': 'Kasprak', 'allergies': 'gluten, soy'}
