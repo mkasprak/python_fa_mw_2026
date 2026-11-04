@@ -1,0 +1,4 @@
+42:{'office': 'g204', 'extension': '8939', 'f_name': 'Meri', 'l_name': 'Kasprak', 'allergies': 'soy, gluten'}
+1:{'office': 'apple', 'extension': '0001', 'f_name': 'Steve', 'l_name': 'Wozniak', 'allergies': 'none'}
+2026:{'office': 'back yard', 'extension': '0', 'f_name': 'Burrich', 'l_name': 'Engel', 'allergies': 'none'}
+86:{'office': '12', 'extension': '1111', 'f_name': 'Fred', 'l_name': 'Flinstone', 'allergies': ''}

@@ -1,0 +1,6 @@
+MILK : Whole, 2%, Skim, Oat, Soy, Coconut, None
+COFFEE : Americano, Drip, Latte, Caffe au Lait, Matcha, Tea, cocoa
+SIZES : Extra Large, Large, Medium, Small
+FLAVORS : Caramel, Vanilla, Chocolate, Seasonal, Sugar Free Caramel, Sugar Free Vanilla, None
+PRICES: 7.0, 6.0, 5.0, 4.0
+
