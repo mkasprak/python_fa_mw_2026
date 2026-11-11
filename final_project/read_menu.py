@@ -6,13 +6,26 @@ Fixes/notes (2026-11-11):
 - Fix `.len()` bug and string-price formatting bug by converting prices to `float`.
 - Make return values consistent: the `print_*` helpers return the number of options displayed.
 - Add `print_sizes()` because `orders.get_order()` calls it.
+- Read `menu.txt` from the `final_project/` folder by default so running from the repo root works.
 """
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+def _menu_path() -> Path:
+    # ✅ FIX: Use a path relative to this file so `py final_project/main.py` works from the repo root.
+    local = Path(__file__).resolve().parent / "menu.txt"
+    if local.exists():
+        return local
+    return Path("menu.txt")
 
 
 def read_menu():
     menus = {}
     try:
-        with open("menu.txt", "r") as file:
+        with open(_menu_path(), "r", encoding="utf-8") as file:
             for line in file:
                 # FIX: avoid IndexError and accidental early-return when a line is blank or missing ":".
                 line = line.strip()
