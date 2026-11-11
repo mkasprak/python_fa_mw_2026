@@ -1,19 +1,47 @@
 """
-    called by main - handles creating confirming and looking up employees
+called by main - handles creating confirming and looking up employees
 """
+
 import os
 import datetime
 
+
 def clear_screen():
+    # clears screens
     _ = os.system("cls" if os.name == "nt" else "clear")
 
 
+def lookup_employee(id):
+    # try:
+    #         with open("menu.txt", "r") as file:
+    #             for line in file:
+    #                 parts_of_line = line.strip().split(":")
+    #                 category = parts_of_line[0].strip()
+    #                 detail = parts_of_line[1].strip()
+    #                 menus[category] = detail
+
+    #         return menus
+    employees = {}
+    try:
+        with open("employees.txt", "r") as file:
+            for line in file:
+                parts_of_line = line.strip().split(":{")
+                emp_id = parts_of_line[0].strip()
+                detail = parts_of_line[1].strip("}")
+                employees[emp_id] = detail
+                print(employees)
+    except FileNotFoundError:
+        print("employees.txt was not found")
+    except IndexError:
+        return id
+    except Exception as e:
+        print(e)
 
 
 def get_employee():
-    
+
     id = int(input("Please enter your ID number:  "))
-    # TODO lookup employee
+    existing = lookup_employee()
     f_name = input("Please enter your first name:  ")
     l_name = input("Please enter your last name:  ")
     office_nbr = input("Office to deliver to:  ")
@@ -21,7 +49,7 @@ def get_employee():
     known_allergies = input(
         "Please enter any known food allergies or sensitivities separated by commas:  "
     )
-    
+
     employee_record = {
         "office": office_nbr,
         "extension": extension,
@@ -30,27 +58,24 @@ def get_employee():
         "allergies": known_allergies,
     }
 
-    
     with open("final_project\\employees.txt", "a") as f:
         f.write(f"{id}:{employee_record}\n")
 
     return id
 
 
-
-
 def confirm_employee(employee_id, employee_record):
-    
+
     while True:
         clear_screen()
-        
+
         print(f"1.  Employee ID:  {employee_id}")
         print(f"2.  Office Number:  {employee_record['office']}")
         print(f"3.  Extension:  {employee_record['extension']}")
         print(f"4.  First Name:  {employee_record['f_name']}")
         print(f"5.  Last Name:  {employee_record['l_name']}")
         print(f"6.  Allergies: {employee_record['allergies']}")
-      
+
         correct = input("Is this correct? (Y/N) ").strip().upper()
         if correct == "Y":
             break
@@ -63,7 +88,6 @@ def confirm_employee(employee_id, employee_record):
         except ValueError:
             input("Please enter a number (1-6). Press Enter to continue...")
             continue
-
 
         match change:
             case 1:
@@ -93,7 +117,6 @@ def confirm_employee(employee_id, employee_record):
                 input("Please choose a number 1-6. Press Enter to continue...")
 
     with open("final_project\\employees.txt", "a") as f:
-            f.write(f"{id}:{employee_record}\n")
-    
+        f.write(f"{id}:{employee_record}\n")
 
     return employee_id

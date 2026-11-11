@@ -1,28 +1,28 @@
-
 import os
 import datetime
 import read_menu
-def clear_screen():
-    _ = os.system("cls" if os.name == "nt" else "clear")
 
+
+def clear_screen():
+    # clears screen
+    _ = os.system("cls" if os.name == "nt" else "clear")
 
 
 def get_order(emp_id):
     menu_items = read_menu.read_menu()
-    coffee, prices, milks, flavors, shots = read_menu.split_into_variables(menu_items)
-    #read_menu.print_menu(coffee, prices, milks, flavors, shots)
+    coffee, prices, milks, flavors, sizes = read_menu.split_into_variables(menu_items)
     clear_screen()
     while True:
         list_length = read_menu.print_coffee(coffee)
         try:
-           
+
             type = int(
                 input(
                     "Please enter the number for the type of drink you want:  "
                 ).strip()
             )
         except ValueError:
-            
+
             input(
                 f"Please enter a number (1-{list_length}). Press Enter to continue..."
             )
@@ -41,132 +41,128 @@ def get_order(emp_id):
         break
 
     clear_screen()
-    # while True:
-    #     # 🖨️ Display the size menu
-    #     count = 1
-    #     for size in SIZES:
-    #         print(f"{count}.   {size}")
-    #         count += 1
-    #     try:
-    #         my_size = int(
-    #             input(
-    #                 "Please enter the number for the size of drink you want:  "
-    #             ).strip()
-    #         )
-    #     except ValueError:
-    #         # ⚠️ Common bug: use len(SIZES), not SIZES.len()
-    #         input(f"Please enter a number (1-{len(SIZES)}). Press Enter to continue...")
-    #         continue
-    #     except Exception as e:
-    #         right_now = datetime.datetime.now()
-    #         with open("final_project\\error.txt", "a") as f:
-    #             f.write(f"{right_now}:  {e}\n")
-    #         continue
-    #     if my_size < 1 or my_size > len(SIZES):
-    #         input(f"Please enter a number (1-{len(SIZES)}). Press Enter to continue...")
-    #         continue
-    #     size = SIZES[my_size - 1]
-    #     break
+    while True:
+        # 🖨️ Display the size menu
+        list_length = read_menu.print_sizes(prices, sizes)
+        try:
+            my_size = int(
+                input(
+                    "Please enter the number for the size of drink you want:  "
+                ).strip()
+            )
+        except ValueError:
+            # ⚠️ Common bug: use len(SIZES), not SIZES.len()
+            input(
+                f"Please enter a number (1-{list_length}). Press Enter to continue..."
+            )
+            continue
+        except Exception as e:
+            right_now = datetime.datetime.now()
+            with open("final_project\\error.txt", "a") as f:
+                f.write(f"{right_now}:  {e}\n")
+            continue
+        if my_size < 1 or my_size > len(sizes):
+            input(f"Please enter a number (1-{len(sizes)}). Press Enter to continue...")
+            continue
+        size = sizes[my_size - 1]
+        break
 
-    # clear_screen()
-    # while True:
-    #     # 🖨️ Display the milk menu
-    #     count = 1
-    #     for milk in MILKS:
-    #         print(f"{count}.   {milk}")
-    #         count += 1
-    #     try:
-    #         my_milk = int(
-    #             input("Please enter the number for the milk you want:  ").strip()
-    #         )
-    #     except ValueError:
-    #         # ⚠️ Common bug: use len(MILKS), not MILKS.len()
-    #         input(f"Please enter a number (1-{len(MILKS)}). Press Enter to continue...")
-    #         continue
-    #     except Exception as e:
-    #         right_now = datetime.datetime.now()
-    #         with open("final_project\\error.txt", "a") as f:
-    #             f.write(f"{right_now}:  {e}\n")
-    #         continue
-    #     if my_milk < 1 or my_milk > len(MILKS):
-    #         input(f"Please enter a number (1-{len(MILKS)}). Press Enter to continue...")
-    #         continue
-    #     milk = MILKS[my_milk - 1]
-    #     break
+    clear_screen()
+    while True:
+        # 🖨️ Display the milk menu
+        list_length = read_menu.print_milks(milks)
+        try:
+            my_milk = int(
+                input("Please enter the number for the milk you want:  ").strip()
+            )
+        except ValueError:
+            # ⚠️ Common bug: use len(MILKS), not MILKS.len()
+            input(
+                f"Please enter a number (1-{list_length}). Press Enter to continue..."
+            )
+            continue
+        except Exception as e:
+            right_now = datetime.datetime.now()
+            with open("final_project\\error.txt", "a") as f:
+                f.write(f"{right_now}:  {e}\n")
+            continue
+        if my_milk < 1 or my_milk > list_length:
+            input(
+                f"Please enter a number (1-{list_length}). Press Enter to continue..."
+            )
+            continue
+        milk = milks[my_milk - 1]
+        break
 
-    # clear_screen()
-    # while True:
-    #     # 🖨️ Display the flavor menu
-    #     count = 1
-    #     for flavor in FLAVORS:
-    #         print(f"{count}.   {flavor}")
-    #         count += 1
-    #     try:
-    #         my_flavor = int(
-    #             input("Please enter the number for the flavor you want:  ").strip()
-    #         )
-    #     except ValueError:
-    #         # ⚠️ Common bug: use len(FLAVORS), not FLAVORS.len()
-    #         input(
-    #             f"Please enter a number (1-{len(FLAVORS)}). Press Enter to continue..."
-    #         )
-    #         continue
-    #     except Exception as e:
-    #         right_now = datetime.datetime.now()
-    #         with open("final_project\\error.txt", "a") as f:
-    #             f.write(f"{right_now}:  {e}\n")
-    #         continue
-    #     if my_flavor < 1 or my_flavor > len(FLAVORS):
-    #         input(
-    #             f"Please enter a number (1-{len(FLAVORS)}). Press Enter to continue..."
-    #         )
-    #         continue
-    #     flavor = FLAVORS[my_flavor - 1]
-    #     break
+    clear_screen()
+    while True:
+        # 🖨️ Display the flavor menu
+        list_length = read_menu.print_flavors(flavors)
+        try:
+            my_flavor = int(
+                input("Please enter the number for the flavor you want:  ").strip()
+            )
+        except ValueError:
+            # ⚠️ Common bug: use len(FLAVORS), not FLAVORS.len()
+            input(
+                f"Please enter a number (1-{list_length}). Press Enter to continue..."
+            )
+            continue
+        except Exception as e:
+            right_now = datetime.datetime.now()
+            with open("final_project\\error.txt", "a") as f:
+                f.write(f"{right_now}:  {e}\n")
+            continue
+        if my_flavor < 1 or my_flavor > list_length:
+            input(
+                f"Please enter a number (1-{list_length}). Press Enter to continue..."
+            )
+            continue
+        flavor = flavors[my_flavor - 1]
+        break
 
-    # while True:
-    #     try:
-    #         # 🧠 Ask for the number of flavor pumps (extra flavor shots)
-    #         pumps = int(
-    #             input(
-    #                 "Please enter the number of pumps you want (ten cents each):  "
-    #             ).strip()
-    #         )
-    #         if pumps < 0:
-    #             print("Pumps cannot be negative. ")
-    #             continue
-    #         if pumps > 10:
-    #             print("Ten is the maximum number of pumps. ")
-    #             continue
-    #     except ValueError:
-    #         # 🛡️ If they type something that is not a number, don't crash—ask again.
-    #         input(f"Please enter a number (0-10). Press Enter to continue...")
-    #         continue
-    #     except Exception as e:
-    #         right_now = datetime.datetime.now()
-    #         with open("final_project\\error.txt", "a") as f:
-    #             f.write(f"{right_now}:  {e}\n")
-    #         continue
-    #     break
+    while True:
+        try:
+            # 🧠 Ask for the number of flavor pumps (extra flavor shots)
+            pumps = int(
+                input(
+                    "Please enter the number of pumps you want (ten cents each):  "
+                ).strip()
+            )
+            if pumps < 0:
+                print("Pumps cannot be negative. ")
+                continue
+            if pumps > 10:
+                print("Ten is the maximum number of pumps. ")
+                continue
+        except ValueError:
+            # 🛡️ If they type something that is not a number, don't crash—ask again.
+            input(f"Please enter a number (0-10). Press Enter to continue...")
+            continue
+        except Exception as e:
+            right_now = datetime.datetime.now()
+            with open("final_project\\error.txt", "a") as f:
+                f.write(f"{right_now}:  {e}\n")
+            continue
+        break
 
-    # # ℹ️ info: This order is stored as a Dictionary.
-    # order = {
-    #     emp_id: {
-    #         "drink": drink,
-    #         "size": size,
-    #         "milk": milk,
-    #         "flavor": flavor,
-    #         "pumps": pumps,
-    #     }
-    # }
-    # # TODO (Week 12 - file I/O lesson):
-    # # - Save orders to a consistent file location (probably under final_project\\).
-    # # - Use a format that's easy to read back (ex: CSV or JSON) instead of Python dict strings.
-    # # - Return the order (or an order_id) so the next step can confirm/print it without re-reading yet.
-    # with open("all_orders.txt", "a") as f:
-    #     f.write(f"{order}\n")
+    # ℹ️ info: This order is stored as a Dictionary.
+    right_now = datetime.datetime.now()
+    order = {
+        emp_id: {
+            "timestamp": right_now,
+            "drink": drink,
+            "size": size,
+            "milk": milk,
+            "flavor": flavor,
+            "pumps": pumps,
+        }
+    }
 
-    # return
+    with open("all_orders.txt", "a") as f:
+        f.write(f"{order}\n")
+
+    return
 
 
 def confirm_order(order_num):
@@ -221,4 +217,3 @@ def confirm_order(order_num):
             with open("final_project\\error.txt", "a") as f:
                 f.write(f"{right_now}:  {e}\n")
             continue
-

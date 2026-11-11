@@ -1,71 +1,105 @@
+"""
+Menu file reader + helpers for printing selection menus.
+
+Fixes/notes (2026-11-11):
+- Parse comma-separated menu values into Python lists so callers can safely use `len()` and indexing.
+- Fix `.len()` bug and string-price formatting bug by converting prices to `float`.
+- Make return values consistent: the `print_*` helpers return the number of options displayed.
+- Add `print_sizes()` because `orders.get_order()` calls it.
+"""
+
+
 def read_menu():
     menus = {}
     try:
         with open("menu.txt", "r") as file:
             for line in file:
-                parts_of_line = line.strip().split(":")
-                category = parts_of_line[0].strip()
-                detail = parts_of_line[1].strip()
-                menus[category] = detail
+                # FIX: avoid IndexError and accidental early-return when a line is blank or missing ":".
+                line = line.strip()
+                if not line or ":" not in line:
+                    continue
+                category, detail = line.split(":", 1)
+                menus[category.strip()] = detail.strip()
 
         return menus
     except FileNotFoundError:
         print('Please create file or check file name. It should be "menu.txt"')
+        # FIX: return an empty menu dict so downstream code doesn't crash on `None`.
+        return {}
     except IndexError:
         return menus
     except Exception as e:
         print(e)
 
 
+def _split_csv(value):
+    """Split a comma-separated string into a clean list of non-empty items."""
+    if not value:
+        return []
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
 def split_into_variables(menu_items):
-    coffee = menu_items.get("COFFEE")
-    prices = menu_items.get("PRICES")
-    milks = menu_items.get("MILK")
-    flavors = menu_items.get("FLAVORS")
-    shots = menu_items.get("SHOTS")
-    return coffee, prices, milks, flavors, shots
+    # FIX: return lists (not raw strings) so callers can index and count options correctly.
+    coffee = _split_csv(menu_items.get("COFFEE"))
+    milks = _split_csv(menu_items.get("MILK"))
+    flavors = _split_csv(menu_items.get("FLAVORS"))
+    sizes = _split_csv(menu_items.get("SIZES"))
+
+    # FIX: convert prices to floats so printing with `:.2f` works.
+    prices_raw = _split_csv(menu_items.get("PRICES"))
+    prices = []
+    for p in prices_raw:
+        try:
+            prices.append(float(p))
+        except ValueError:
+            raise ValueError(f'Invalid price "{p}" in menu.txt under PRICES') from None
+
+    return coffee, prices, milks, flavors, sizes
 
 
 def print_coffee(coffee):
     print("Coffee\n")
-    count = 1
-    coffee_item = coffee.split(",")
     print("\nCoffee:")
-    for item in coffee_item:
-        print(f"{count}. \t{item.strip()}")
-        count += 1
+    for idx, item in enumerate(coffee, start=1):
+        print(f"{idx}. \t{item}")
+    # FIX: return number of options displayed (not character count).
     return len(coffee)
 
+
+def print_sizes(prices, sizes):
+    """Print numbered size choices with their prices; returns number of choices shown."""
+    print("Sizes\n")
+    if not sizes:
+        print("(No sizes found in menu.)")
+        return 0
+    if not prices:
+        print("(No prices found in menu.)")
+        return 0
+
+    # FIX: avoid index errors if the menu file has mismatched counts.
+    count = min(len(sizes), len(prices))
+    for i in range(count):
+        print(f"{i+1}.  Size: {sizes[i]}         Price: $  {prices[i]:.2f}")
+    return count
+
+
 def print_prices(prices, sizes):
-    print("Prices\n")
-    count = 1
-    price_item = prices.split(",")
-    size_item = sizes.split(",")
-    for i in range(0, price_item.len()):
-        print(f"{count}.  Size: {size_item[i]}         Price: $  {price_item[i]:.2f}")
-        count += 1
-    return len(prices)
-    
+    # Backwards-compatible alias: older code may still call print_prices().
+    return print_sizes(prices, sizes)
+
 
 def print_milks(milks):
     print("Milks\n")
-    count = 1
-    milks_item = milks.split(",")
-    for item in milks_item:
-        print(f"{count}.\t{item.strip()}")
-        count += 1
+    for idx, item in enumerate(milks, start=1):
+        print(f"{idx}.\t{item}")
+    # FIX: return number of options displayed (not character count).
     return len(milks)
 
 
 def print_flavors(flavors):
     print("Flavors\n")
-    count = 1
-    flavors_item = flavors.split(",")
-    for item in flavors_item:
-        print(f"{count}.\t{item.strip()}")
-        count += 1  
-    return len(flavors)      
-
-   
-
-
+    for idx, item in enumerate(flavors, start=1):
+        print(f"{idx}.\t{item}")
+    # FIX: return number of options displayed (not character count).
+    return len(flavors)
