@@ -57,6 +57,10 @@ def _ensure_state() -> None:
         st.session_state.cart = []
     if "last_saved_order_id" not in st.session_state:
         st.session_state.last_saved_order_id = None
+    if "last_receipt_text" not in st.session_state:
+        st.session_state.last_receipt_text = None
+    if "last_receipt_filename" not in st.session_state:
+        st.session_state.last_receipt_filename = None
 
 
 def _set_current_employee(employee_id: int) -> None:
@@ -159,6 +163,59 @@ def employees_tab() -> None:
             )
 
 
+def _format_receipt_text(order: dict[str, Any]) -> str:
+    employees = data_store.load_employees()
+    employee_id = int(order.get("employee_id", 0) or 0)
+    employee = employees.get(str(employee_id), {})
+
+    lines: list[str] = []
+    lines.append("COFFEE ORDER RECEIPT")
+    lines.append("=" * 40)
+    lines.append(f"Order #:    {order.get('order_id', '')}")
+    lines.append(f"Timestamp:  {order.get('timestamp', '')}")
+    lines.append(f"Employee #: {employee_id}")
+    if employee:
+        name = f"{employee.get('f_name','').strip()} {employee.get('l_name','').strip()}".strip()
+        if name:
+            lines.append(f"Name:       {name}")
+        office = str(employee.get("office", "")).strip()
+        extension = str(employee.get("extension", "")).strip()
+        if office:
+            lines.append(f"Office:     {office}")
+        if extension:
+            lines.append(f"Extension:  {extension}")
+        allergies = str(employee.get("allergies", "")).strip()
+        if allergies:
+            lines.append(f"Allergies:  {allergies}")
+
+    lines.append("-" * 40)
+    lines.append("Items")
+    items = order.get("items", [])
+    if isinstance(items, list) and items:
+        for i, item in enumerate(items, start=1):
+            if not isinstance(item, dict):
+                continue
+            qty = int(item.get("quantity", 1) or 1)
+            drink = str(item.get("drink", "")).strip()
+            size = str(item.get("size", "")).strip()
+            milk = str(item.get("milk", "")).strip()
+            flavor = str(item.get("flavor", "")).strip()
+            pumps = int(item.get("pumps", 0) or 0)
+            item_total = _as_float(item.get("total_price", 0))
+
+            lines.append(f"{i}. {qty}x {size} {drink}")
+            lines.append(f"   Milk: {milk} | Flavor: {flavor} | Pumps: {pumps}")
+            lines.append(f"   Item total: ${item_total:.2f}")
+    else:
+        lines.append("(no items)")
+
+    lines.append("-" * 40)
+    lines.append(f"ORDER TOTAL: ${_as_float(order.get('total_price', 0)):.2f}")
+    lines.append("=" * 40)
+    lines.append("Thank you!")
+    return "\n".join(lines) + "\n"
+
+
 def order_tab() -> None:
     st.header("Order")
 
@@ -208,6 +265,15 @@ def order_tab() -> None:
     cart: list[CartItem] = st.session_state.cart
     if not cart:
         st.write("No items yet.")
+        if st.session_state.last_receipt_text and st.session_state.last_receipt_filename:
+            st.divider()
+            st.subheader("Download receipt")
+            st.download_button(
+                "Download receipt",
+                data=st.session_state.last_receipt_text,
+                file_name=st.session_state.last_receipt_filename,
+                mime="text/plain",
+            )
         return
 
     rows = []
@@ -240,7 +306,7 @@ def order_tab() -> None:
             st.session_state.cart = []
             st.rerun()
     with col3:
-        confirm = st.button("Confirm & save order", type="primary")
+        confirm = st.button("Place order now", type="primary")
 
     if confirm:
         orders = data_store.load_orders()
@@ -258,8 +324,17 @@ def order_tab() -> None:
         data_store.save_orders(orders)
 
         st.session_state.last_saved_order_id = order_id
+        st.session_state.last_receipt_text = _format_receipt_text(order)
+        st.session_state.last_receipt_filename = f"receipt_order_{order_id}.txt"
         st.session_state.cart = []
         st.success(f"Order #{order_id} saved.")
+        st.subheader("Download receipt")
+        st.download_button(
+            "Download receipt",
+            data=st.session_state.last_receipt_text,
+            file_name=st.session_state.last_receipt_filename,
+            mime="text/plain",
+        )
 
 
 def history_tab() -> None:
@@ -352,4 +427,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
