@@ -1,118 +1,98 @@
 """
-Menu file reader + helpers for printing selection menus.
+Reads `menu.txt` and prints menu choices.
 
-Fixes/notes (2026-11-11):
-- Parse comma-separated menu values into Python lists so callers can safely use `len()` and indexing.
-- Fix `.len()` bug and string-price formatting bug by converting prices to `float`.
-- Make return values consistent: the `print_*` helpers return the number of options displayed.
-- Add `print_sizes()` because `orders.get_order()` calls it.
-- Read `menu.txt` from the `final_project/` folder by default so running from the repo root works.
+🧠 Student style (kept on purpose):
+- Keep menu values as strings (like "A, B, C") and use `.split(",")` when needed.
+- Avoid helper functions like `_split_csv` so this matches what we covered in class.
+
+✅ Small fixes (Codex):
+- Fix `.len()` bug (use `len(list)`).
+- Return the number of options displayed (not the number of characters in the string).
 """
-
-from __future__ import annotations
-
-from pathlib import Path
-
-
-def _menu_path() -> Path:
-    # ✅ FIX: Use a path relative to this file so `py final_project/main.py` works from the repo root.
-    local = Path(__file__).resolve().parent / "menu.txt"
-    if local.exists():
-        return local
-    return Path("menu.txt")
 
 
 def read_menu():
     menus = {}
     try:
-        with open(_menu_path(), "r", encoding="utf-8") as file:
+        # 💾 Keep it simple: read the menu file from the final_project folder.
+        with open("final_project\\menu.txt", "r") as file:
             for line in file:
-                # FIX: avoid IndexError and accidental early-return when a line is blank or missing ":".
-                line = line.strip()
-                if not line or ":" not in line:
-                    continue
-                category, detail = line.split(":", 1)
-                menus[category.strip()] = detail.strip()
+                parts_of_line = line.strip().split(":")
+                category = parts_of_line[0].strip()
+                detail = parts_of_line[1].strip()
+                menus[category] = detail
 
         return menus
     except FileNotFoundError:
         print('Please create file or check file name. It should be "menu.txt"')
-        # FIX: return an empty menu dict so downstream code doesn't crash on `None`.
-        return {}
+        return menus
     except IndexError:
         return menus
     except Exception as e:
         print(e)
-
-
-def _split_csv(value):
-    """Split a comma-separated string into a clean list of non-empty items."""
-    if not value:
-        return []
-    return [item.strip() for item in value.split(",") if item.strip()]
+        return menus
 
 
 def split_into_variables(menu_items):
-    # FIX: return lists (not raw strings) so callers can index and count options correctly.
-    coffee = _split_csv(menu_items.get("COFFEE"))
-    milks = _split_csv(menu_items.get("MILK"))
-    flavors = _split_csv(menu_items.get("FLAVORS"))
-    sizes = _split_csv(menu_items.get("SIZES"))
-
-    # FIX: convert prices to floats so printing with `:.2f` works.
-    prices_raw = _split_csv(menu_items.get("PRICES"))
-    prices = []
-    for p in prices_raw:
-        try:
-            prices.append(float(p))
-        except ValueError:
-            raise ValueError(f'Invalid price "{p}" in menu.txt under PRICES') from None
-
+    coffee = menu_items.get("COFFEE")
+    prices = menu_items.get("PRICES")
+    milks = menu_items.get("MILK")
+    flavors = menu_items.get("FLAVORS")
+    sizes = menu_items.get("SIZES")
     return coffee, prices, milks, flavors, sizes
 
 
 def print_coffee(coffee):
+    # 🖨️ Display coffee choices and return how many options there are.
     print("Coffee\n")
+    count = 1
+    coffee_item = coffee.split(",")
     print("\nCoffee:")
-    for idx, item in enumerate(coffee, start=1):
-        print(f"{idx}. \t{item}")
-    # FIX: return number of options displayed (not character count).
-    return len(coffee)
+    for item in coffee_item:
+        print(f"{count}. \t{item.strip()}")
+        count += 1
+    return len(coffee_item)
 
 
 def print_sizes(prices, sizes):
-    """Print numbered size choices with their prices; returns number of choices shown."""
+    # 🖨️ Display sizes + prices and return how many options there are.
     print("Sizes\n")
-    if not sizes:
-        print("(No sizes found in menu.)")
-        return 0
-    if not prices:
-        print("(No prices found in menu.)")
-        return 0
+    count = 1
+    price_item = prices.split(",")
+    size_item = sizes.split(",")
 
-    # FIX: avoid index errors if the menu file has mismatched counts.
-    count = min(len(sizes), len(prices))
-    for i in range(count):
-        print(f"{i+1}.  Size: {sizes[i]}         Price: $  {prices[i]:.2f}")
-    return count
+    # ⚠️ Use the shorter length so it doesn't crash if menu.txt has mismatched counts.
+    options = len(size_item)
+    if len(price_item) < options:
+        options = len(price_item)
+    for i in range(0, options):
+        print(
+            f"{count}.  Size: {size_item[i].strip()}         Price: $ {price_item[i].strip()}"
+        )
+        count += 1
+    return options
 
 
 def print_prices(prices, sizes):
-    # Backwards-compatible alias: older code may still call print_prices().
+    # Backwards-compatible name if older code calls print_prices()
     return print_sizes(prices, sizes)
 
 
 def print_milks(milks):
     print("Milks\n")
-    for idx, item in enumerate(milks, start=1):
-        print(f"{idx}.\t{item}")
-    # FIX: return number of options displayed (not character count).
-    return len(milks)
+    count = 1
+    milks_item = milks.split(",")
+    for item in milks_item:
+        print(f"{count}.\t{item.strip()}")
+        count += 1
+    return len(milks_item)
 
 
 def print_flavors(flavors):
     print("Flavors\n")
-    for idx, item in enumerate(flavors, start=1):
-        print(f"{idx}.\t{item}")
-    # FIX: return number of options displayed (not character count).
-    return len(flavors)
+    count = 1
+    flavors_item = flavors.split(",")
+    for item in flavors_item:
+        print(f"{count}.\t{item.strip()}")
+        count += 1
+    return len(flavors_item)
